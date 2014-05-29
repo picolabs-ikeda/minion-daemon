@@ -210,7 +210,8 @@ abstract class Kohana_Minion_Daemon extends Minion_Task {
 	 * @param boolean $exit Exit() on completion?
 	 * @return void
 	 */
-	public function execute(array $config, $exit = TRUE)
+//	public function execute(array $config, $exit = TRUE)
+	protected function _execute(array $config)
 	{
 		// Should we fork this daemon?
 		if (array_key_exists('fork', $config) AND $config['fork'] == TRUE)
@@ -294,7 +295,7 @@ abstract class Kohana_Minion_Daemon extends Minion_Task {
 		}
 		
 		// If possible, exit rather than return to keep a clean output
-		if ($exit)
+		if (Arr::get($config, 'exit', FALSE))
 		{
 			exit(0);
 		}
